@@ -11,11 +11,9 @@ This document is a RDDL Resource Gloss. RDDL is an XHTML document with special l
 ## Resources relevant to WBOL schema 
 
 ### WBOL schemas
-XML schema for WBOL 1.0
-
+XML schema for WBOL 1.0<br />
 XML schema for WBOL 2.0
 
 ### WBOL schemas root namespace URI
 Root namespace URI https://spintheweb.org/schemas/ is the base for all namespaces relative to WBOL.  
 
-Copyright © Giancarlo Trevisan 
