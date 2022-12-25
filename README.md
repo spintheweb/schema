@@ -1,4 +1,4 @@
-# Namespace description and resource gloss for WBOL (Webbase Description Language) 
+# Namespace description and resource gloss for WBDL (Webbase Description Language) 
 Latest Version: 26 April 2020 
 
 Editor:
