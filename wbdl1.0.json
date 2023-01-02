@@ -1,1 +1,19 @@
-
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://spintheweb.org/wbdl-schema.json",
+    "title": "Webbase Description Language",
+    "description": "A language for describing sites in general",
+    "type": "object",
+    "properties": {
+        "guid": {
+            "description": "The unique identifier of the webbase",
+            "type": "guid"
+        },
+        "type": {
+            
+        }
+    },
+    "required": [
+        "guid"
+    ]
+}
