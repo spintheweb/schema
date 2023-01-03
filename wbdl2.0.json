@@ -1,17 +1,24 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://spintheweb.org/wbdl-schema.json",
+    "$id": "https://schemas.spintheweb.org/wbdl2.0.json",
     "title": "Webbase Description Language",
-    "description": "A language for describing sites in general",
+    "description": "A language for describing sites",
     "type": "object",
     "properties": {
         "guid": {
             "description": "The unique identifier of the webbase",
-            "type": "guid"
+            "type": "string"
         },
-        "type": {
-            
-        }
+        "name": {
+            "type": "array",
+            "items": ""
+        },
+        "url": {},
+        "homepage": {},
+        "authorizations": {},
+        "keywords": {},
+        "description": {},
+        "children": {}
     },
     "required": [
         "guid"
