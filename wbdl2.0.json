@@ -5,13 +5,16 @@
     "description": "A language for describing sites",
     "type": "object",
     "properties": {
-        "guid": {
+        "_id": {
             "description": "The unique identifier of the webbase",
             "type": "string"
         },
         "name": {
-            "type": "array",
-            "items": ""
+            "type": "object",
+            "patternProperties": {
+                "^([a-z]{2}|[A-Z]{2})$": {"type": "string"}   
+            },
+            "additionalProperties": false
         },
         "url": {},
         "homepage": {},
