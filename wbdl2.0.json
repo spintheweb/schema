@@ -7,23 +7,195 @@
     "properties": {
         "_id": {
             "description": "The unique identifier of the webbase",
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
+        },
+        "type": {
+            "type": "string",
+            "enum": [
+                "site",
+                "area",
+                "page",
+                "content"
+            ]
         },
         "name": {
             "type": "object",
-            "patternProperties": {
-                "^([a-z]{2}|[A-Z]{2})$": {"type": "string"}   
-            },
-            "additionalProperties": false
+            "$ref": "#/$defs/translation"
         },
-        "url": {},
-        "homepage": {},
-        "authorizations": {},
-        "keywords": {},
-        "description": {},
-        "children": {}
+        "visibility": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "patternProperties": {
+                "^([a-z0-9_]{1,25})?$": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            }
+        },
+        "children": {
+            "type": "array",
+            "items": {
+                "$ref": "#"
+            }
+        }
     },
-    "required": [
-        "guid"
-    ]
+    "unevaluatedProperties": false,
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "site"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "lang": {
+                        "type": "string",
+                        "pattern": "^([a-z]{2}(-[a-z]{2})?)$"
+                    },
+                    "url": {
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    "mainpage": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "icon": {
+                        "type": "object",
+                        "$ref": "#/$defs/translation"
+                    },
+                    "keywords": {
+                        "type": "object",
+                        "$ref": "#/$defs/translation"
+                    },
+                    "description": {
+                        "type": "object",
+                        "$ref": "#/$defs/translation"
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "area"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "mainpage": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "icon": {
+                        "type": "object",
+                        "$ref": "#/$defs/translation"
+                    },
+                    "keywords": {
+                        "type": "object",
+                        "$ref": "#/$defs/translation"
+                    },
+                    "description": {
+                        "type": "object",
+                        "$ref": "#/$defs/translation"
+                    },
+                    "slug": {
+                        "type": "object",
+                        "$ref": "#/$defs/translation"
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "page"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "keywords": {
+                        "type": "object",
+                        "$ref": "#/$defs/translation"
+                    },
+                    "description": {
+                        "type": "object",
+                        "$ref": "#/$defs/translation"
+                    },
+                    "slug": {
+                        "type": "object",
+                        "$ref": "#/$defs/translation"
+                    },
+                    "template": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "content"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "slug": {
+                        "type": "object",
+                        "$ref": "#/$defs/translation"
+                    },
+                    "subtype": {
+                        "type": "string",
+                        "enum": [
+                            "text",
+                            "serversidecode"
+                        ]
+                    },
+                    "section": {
+                        "type": "string"
+                    },
+                    "sequence": {
+                        "type": "number"
+                    },
+                    "dsn": {
+                        "type": "string"
+                    },
+                    "query": {
+                        "type": "string"
+                    },
+                    "parameters": {
+                        "type": "string"
+                    },
+                    "layout": {
+                        "type": "object",
+                        "$ref": "#/$defs/translation"
+                    }
+                }
+            }
+        }
+    ],
+    "$defs": {
+        "translation": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-z]{2}(-[a-z]{2})?)$": {
+                    "type": "string"
+                }
+            }
+        }
+    }
 }
