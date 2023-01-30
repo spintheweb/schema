@@ -10,6 +10,10 @@
             "type": "string",
             "format": "uuid"
         },
+        "_idParent": {
+            "type": "string",
+            "format": "uuid"
+        },
         "type": {
             "type": "string",
             "enum": [
@@ -20,8 +24,14 @@
             ]
         },
         "name": {
-            "type": "object",
             "$ref": "#/$defs/translation"
+        },
+        "status": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "pattern": "^([A-Z])$"
         },
         "visibility": {
             "type": [
@@ -58,26 +68,26 @@
                 "properties": {
                     "lang": {
                         "type": "string",
-                        "pattern": "^([a-z]{2}(-[a-z]{2})?)$"
+                        "pattern": "^([a-z]{2}(-[A-Z]{2})?)$"
                     },
                     "url": {
                         "type": "string",
                         "format": "uri"
                     },
                     "mainpage": {
-                        "type": "string",
+                        "type": [
+                            "string",
+                            "null"
+                        ],
                         "format": "uuid"
                     },
                     "icon": {
-                        "type": "object",
-                        "$ref": "#/$defs/translation"
+                        "type": "string"
                     },
                     "keywords": {
-                        "type": "object",
                         "$ref": "#/$defs/translation"
                     },
                     "description": {
-                        "type": "object",
                         "$ref": "#/$defs/translation"
                     }
                 }
@@ -94,23 +104,22 @@
             "then": {
                 "properties": {
                     "mainpage": {
-                        "type": "string",
+                        "type": [
+                            "string",
+                            "null"
+                        ],
                         "format": "uuid"
                     },
                     "icon": {
-                        "type": "object",
-                        "$ref": "#/$defs/translation"
+                        "type": "string"
                     },
                     "keywords": {
-                        "type": "object",
                         "$ref": "#/$defs/translation"
                     },
                     "description": {
-                        "type": "object",
                         "$ref": "#/$defs/translation"
                     },
                     "slug": {
-                        "type": "object",
                         "$ref": "#/$defs/translation"
                     }
                 }
@@ -127,16 +136,16 @@
             "then": {
                 "properties": {
                     "keywords": {
-                        "type": "object",
                         "$ref": "#/$defs/translation"
                     },
                     "description": {
-                        "type": "object",
                         "$ref": "#/$defs/translation"
                     },
                     "slug": {
-                        "type": "object",
                         "$ref": "#/$defs/translation"
+                    },
+                    "icon": {
+                        "type": "string"
                     },
                     "template": {
                         "type": "string"
@@ -155,7 +164,6 @@
             "then": {
                 "properties": {
                     "slug": {
-                        "type": "object",
                         "$ref": "#/$defs/translation"
                     },
                     "subtype": {
@@ -172,17 +180,28 @@
                         "type": "number"
                     },
                     "dsn": {
-                        "type": "string"
+                        "type": [
+                            "string",
+                            "null"
+                        ]
                     },
                     "query": {
-                        "type": "string"
+                        "type": [
+                            "string",
+                            "null"
+                        ]
                     },
                     "parameters": {
-                        "type": "string"
+                        "type": [
+                            "string",
+                            "null"
+                        ]
                     },
                     "layout": {
-                        "type": "object",
                         "$ref": "#/$defs/translation"
+                    },
+                    "cssCLass": {
+                        "type": "string"
                     }
                 }
             }
@@ -192,7 +211,7 @@
         "translation": {
             "type": "object",
             "patternProperties": {
-                "^([a-z]{2}(-[a-z]{2})?)$": {
+                "^([a-z]{2}(-[A-Z]{2})?)$": {
                     "type": "string"
                 }
             }
