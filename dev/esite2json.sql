@@ -1,6 +1,6 @@
 /* 
     SQL functions and procedure to translate an eSite Webbase to a JSON Webbase
-    These objects should be created in an eSite Webbase then exec dbo.spSTW 'en' shoul be launched
+    These objects should be created in an eSite Webbase (SQL 2017+) then exec dbo.spSTW 'en' shoul be launched
 */ 
 
 DROP IF EXISTS [dbo.fnSTWVisibility];
