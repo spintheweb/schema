@@ -17,7 +17,7 @@
         "webmasters": null,
         "administrators": true
     },
-    "datasources": [],
+    "datasources": {},
     "icon": {},
     "keywords": {
         "en": "wbdl studio helloworld"

@@ -3,12 +3,12 @@
     Usage: Launch the following T-SQL in an eSite Webbase (MS SQL Server 2017+) then exec dbo.spSTW 'en'
 */ 
 
-DROP IF EXISTS [dbo.fnSTWVisibility];
-DROP IF EXISTS [dbo.fnSTWLanguage];
-DROP IF EXISTS [dbo.fnSTWDatasources];
-DROP IF EXISTS [dbo.fnSTWCanonical];
-DROP IF EXISTS [dbo.fnSTWAreas];
-DROP IF EXISTS [dbo.spSTW];
+DROP FUNCTION IF EXISTS dbo.fnSTWVisibility;
+DROP FUNCTION IF EXISTS dbo.fnSTWLanguage;
+DROP FUNCTION IF EXISTS dbo.fnSTWDatasources;
+DROP FUNCTION IF EXISTS dbo.fnSTWCanonical;
+DROP FUNCTION IF EXISTS dbo.fnSTWAreas;
+DROP PROCEDURE IF EXISTS dbo.spSTW;
 
 -- =============================================
 -- Author:		Giancarlo Trevisan
@@ -93,16 +93,12 @@ RETURNS nvarchar(max)
 AS 
 BEGIN
 	DECLARE @json nvarchar(max) = '';
-	
-	SET @json = (
-		select 
-			lower(fName) as [name],
-			'sql' as [type],
-			fConnectionString as [description]
-		from dbo.eSiteDatasources with (nolock)
-		for json path
-	)
-	RETURN @json;
+	SELECT 
+		@json += trim('{}' from JSON_MODIFY(JSON_MODIFY(JSON_MODIFY(value, '$.' + JSON_VALUE(value, '$.name'), JSON_VALUE(value, '$.description')), '$.name', null), '$.description', null)) + ','
+	FROM 
+		OPENJSON((SELECT lower(fName) as [name], fConnectionString as [description] FROM dbo.eSiteDatasources FOR json auto));
+
+	RETURN '{' + trim(',' FROM @json) + '}';
 END
 
 -- =============================================
@@ -168,7 +164,7 @@ BEGIN
 						, JSON_QUERY('{"' + @lang + '":"' + dbo.fnSTWCanonical(C.fDescription) + '"}') as [slug]
 						, JSON_QUERY('{"' + @lang + '":"' + C.fDescription + '"}') as [name]
 						, C.fCSSClass as [cssclass]
-						, C.fSection as [section]
+						, cast(C.fSection as nvarchar(32)) as [section]
 						, cast(C.fSequence as decimal(10,2)) as [sequence]
 						, C.fRenderAs as [subtype]
 						, (select fName from dbo.eSiteDataSources where fId = C.fDataSource) as [dsn]
