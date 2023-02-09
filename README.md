@@ -1,5 +1,5 @@
 # Namespace description and resource gloss for WBDL (Webbase Description Language) 
-Latest Version: 26 April 2020 
+Latest Version: 31 January 2023 
 
 Editor:
 *	Giancarlo Trevisan, Project Manager
@@ -11,7 +11,7 @@ This document is a [RDDL](http://www.rddl.org/) Resource Gloss. RDDL is an XHTML
 ## Resources relevant to WBDL schema 
 
 ### WBDL schemas
-XML schema for WBDL 2.0 (XML)<br />
+XML schema for WBDL 2.0 (XML) Deprecated<br />
 XML schema for WBDL 2.0 (JSON)
 
 ### WBDL schemas root namespace URI

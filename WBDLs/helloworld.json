@@ -14,12 +14,11 @@
         "users": null,
         "translators": null,
         "developers": null,
+        "webmasters": null,
         "administrators": true
     },
     "datasources": [],
-    "icon": {
-        "en": ""
-    },
+    "icon": {},
     "keywords": {
         "en": "wbdl studio helloworld"
     },

@@ -1,6 +1,6 @@
 /* 
-    SQL functions and procedure to translate an eSite Webbase to a JSON Webbase
-    These objects should be created in an eSite Webbase (SQL 2017+) then exec dbo.spSTW 'en' shoul be launched
+    SQL functions and procedure to translate an eSite Webbase (the ancestor of Spin the Web) to a JSON Webbase
+    Usage: Launch the following T-SQL in an eSite Webbase (MS SQL Server 2017+) then exec dbo.spSTW 'en'
 */ 
 
 DROP IF EXISTS [dbo.fnSTWVisibility];
@@ -23,20 +23,20 @@ BEGIN
 	DECLARE @json nvarchar(max) = '';
 	
 	IF @type = 'S'
-		SELECT @json += concat('"' + E.fName + '":', case when A.fVisibility = -1 then 'true' else 'false' end, ',')
+		SELECT @json += concat('"' + lower(E.fName) + '":', case when A.fVisibility = -1 then 'true' else 'false' end, ',')
 			FROM dbo.eSiteEntities E left join (select * from dbo.eSiteAuthorizations where fSiteId = @id) A on A.fEntityId = E.fId
 			WHERE E.fGroup = 1;
 
 	ELSE IF @type = 'A'
-		SELECT @json += concat('"' + E.fName + '":', case when A.fVisibility = -1 then 'true' else 'false' end, ',')
+		SELECT @json += concat('"' + lower(E.fName) + '":', case when A.fVisibility = -1 then 'true' else 'false' end, ',')
 			FROM (select * from dbo.eSiteAuthorizations where fAreaId = @id) A left join dbo.eSiteEntities E on A.fEntityId = E.fId
 			
 	ELSE IF @type = 'P'
-		SELECT @json += concat('"' + E.fName + '":', case when A.fVisibility = -1 then 'true' else 'false' end, ',')
+		SELECT @json += concat('"' + lower(E.fName) + '":', case when A.fVisibility = -1 then 'true' else 'false' end, ',')
 			FROM (select * from dbo.eSiteAuthorizations where fPageId = @id) A left join dbo.eSiteEntities E on A.fEntityId = E.fId
 
 	ELSE IF @type = 'C'
-		SELECT @json += concat('"' + E.fName + '":', case when A.fVisibility = -1 then 'true' else 'false' end, ',')
+		SELECT @json += concat('"' + lower(E.fName) + '":', case when A.fVisibility = -1 then 'true' else 'false' end, ',')
 			FROM (select * from dbo.eSiteAuthorizations where fContentId = @id) A left join dbo.eSiteEntities E on A.fEntityId = E.fId
 
 	RETURN '{' + trim(',' FROM @json) + '}';
@@ -96,9 +96,9 @@ BEGIN
 	
 	SET @json = (
 		select 
-			fName as [name],
-			'SQL' as [type],
-			fConnectionString as [reference]
+			lower(fName) as [name],
+			'sql' as [type],
+			fConnectionString as [description]
 		from dbo.eSiteDatasources with (nolock)
 		for json path
 	)
