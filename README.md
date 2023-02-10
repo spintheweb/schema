@@ -11,8 +11,9 @@ This document is a [RDDL](http://www.rddl.org/) Resource Gloss. RDDL is an XHTML
 ## Resources relevant to WBDL schema 
 
 ### WBDL schemas
-XML schema for WBDL 2.0 (XML) Deprecated<br />
-XML schema for WBDL 2.0 (JSON)
+JSON schema for WBDL 1.0<br>
+XML schema for WBDL 2.0 Deprecated<br>
+XML schema for WBDL 1.0 Deprecated
 
 ### WBDL schemas root namespace URI
 Root namespace URI https://schemas.spintheweb.org is the base for all namespaces relative to WBDL.  
